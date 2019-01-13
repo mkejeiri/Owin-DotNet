@@ -1,0 +1,37 @@
+﻿@inherits System.Web.Mvc.WebViewPage<OwinOptionsKatanaSecurityDemo.Models.LoginModel>
+@using System.ServiceModel.Syndication
+@using System.Web.Mvc.Html
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+    <div>
+        @using (var form = Html.BeginForm())
+        {
+            <div>
+                @Html.LabelFor(x => x.Username)
+                @Html.TextBoxFor(x => x.Username)
+            </div>
+            <div>
+                @Html.LabelFor(x => x.Password)
+                @Html.TextBoxFor(x => x.Password)
+            </div>
+            <div>
+                <input type="submit" value="log in">
+            </div>
+        }
+    </div>
+
+    @foreach (var provider in Model.AuthProviders)
+    {
+        <div>@Html.ActionLink("Log in "+provider.Caption, "SocialLogin", new {id=provider.AuthenticationType})</div>
+    }
+
+    @*<div>@Html.ActionLink("Log in with Facebook","LoginFacebook")</div>
+        <div>@Html.ActionLink("Log in with twitter", "LoginTwitter")</div>*@
+</body>
+</html>
